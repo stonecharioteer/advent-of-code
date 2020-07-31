@@ -30,3 +30,7 @@ As in: `aoc <year> <day> -f <file>` and `cat <file> | aoc <year> <day> -f -`
 should work irrespective of the language I use.
 I will solve all the previous year's problems in this way.
 Eventually, I may merge these and setup randomized testing for each.
+
+## Rust Solutions
+
+I am basing the structure of the rust solutions off of [bcmyer's](https://github.com/bcmyers) structure.
