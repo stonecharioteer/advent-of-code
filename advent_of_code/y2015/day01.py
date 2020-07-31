@@ -13,6 +13,7 @@ The apartment building is very tall, and the basement is very deep; he will neve
 
 For example:
 
+
 (()) and ()() both result in floor 0.
 ((( and (()(()( both result in floor 3.
 ))((((( also results in floor 3.
@@ -22,7 +23,13 @@ To what floor do the instructions take Santa?"""
 from typing import Iterable
 
 
-def run(inp: str)->int:
+def run(inp: Iterable)->int:
     """Returns floor count"""
-    for l in inp:
-        print(l)
+    data = inp.read()
+    floor = 0
+    for character in data:
+        if character == "(":
+            floor += 1
+        elif character == ")":
+            floor -= 1
+    return floor
