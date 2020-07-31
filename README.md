@@ -23,7 +23,7 @@ Here are the languages I hope to try these with:
 
 In doing this I also want my approach to be similar. As in:
 
-```aoc <year> <day> -f <file>`
+```aoc <year> <day> -f <file>```
 
 and
 
