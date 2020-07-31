@@ -1,6 +1,6 @@
 # advent-of-code
 
-My solutions for advent of code.
+My solutions for [advent of code.](https://adventofcode.com/)
 
 ## About
 
@@ -20,3 +20,13 @@ Here are the languages I hope to try these with:
 4. Golang
 5. Rust
 6. OCAML
+
+In doing this I also want my approach to be similar. As in:
+
+```aoc <year> <day> -f <file>`
+
+and
+
+```cat <file> | aoc <year> <day> -f -```
+
+should work irrespective of the language I use. I will solve all the previous year's problems in this way. Eventually, I may merge these and setup randomized testing for each.
