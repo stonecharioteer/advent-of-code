@@ -20,16 +20,19 @@ For example:
 ()) and ))( both result in floor -1 (the first basement level).
 ))) and )())()) both result in floor -3.
 To what floor do the instructions take Santa?"""
-from typing import Iterable
+from typing import Iterable, Tuple
 
 
-def run(inp: Iterable)->int:
+def run(inp: Iterable) -> Tuple[int, int]:
     """Returns floor count"""
     data = inp.read()
     floor = 0
-    for character in data:
+    basement = None
+    for ix, character in enumerate(data):
         if character == "(":
             floor += 1
         elif character == ")":
             floor -= 1
-    return floor
+        if floor == -1 and basement is None:
+            basement = ix+1
+    return floor, basement
