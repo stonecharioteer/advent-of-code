@@ -12,4 +12,10 @@ This branch hosts my AOC solutions using python.
 ```aoc <year> <day> -f input-file-path```
 
 or
+
 ```cat input.txt | aoc <year> <day> -f -```
+
+
+## Adding new solutions
+
+For Year **xxxx** and day **y**, just go to **yxxxx/d0y.py** and add a run function that takes an iterable.
