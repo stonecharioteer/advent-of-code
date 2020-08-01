@@ -16,6 +16,7 @@ haegwjzuvuyypxyu is naughty because it contains the string xy.
 dvszwmarrgswjxmb is naughty because it contains only one vowel.
 How many strings are nice?
 """
+
 from typing import Iterable, Tuple
 import string
 
@@ -28,11 +29,12 @@ def run(inp: Iterable) -> Tuple[int, int]:
         line = line.strip()
         if line == "":
             continue
-        contains_naughty = any(word in line for word in naughty_words)
-        contains_less_than_3_vowels = sum(1 for vowel in "aeiou" if vowel in line) < 3
-        contains_no_doubles = not any(letter*2 in line for letter in string.ascii_lowercase)
-        nice = not (contains_naughty and contains_no_doubles and contains_less_than_3_vowels)
-        print(line, nice)
+
+        contains_no_naughty_words = any(word not in line for word in naughty_words)
+        contains_3_or_more_vowels = len([vowel for vowel in "aeiou" if vowel in line]) >= 3
+        contains_doubles = any(letter*2 in line for letter in string.ascii_lowercase)
+        nice = all([contains_no_naughty_words, contains_3_or_more_vowels, contains_doubles])
         if nice:
             count_nice += 1
+        print(f"{line=}, {contains_no_naughty_words=}, {contains_3_or_more_vowels=}, {contains_doubles=}")
     return (count_nice, None)
