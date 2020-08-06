@@ -23,16 +23,35 @@ turn off 499,499 through 500,500 would turn off (or leave off) the middle four l
 After following the instructions, how many lights are lit?
 
 
+--- Part Two ---
+You just finish implementing your winning light pattern when you realize you mistranslated Santa's message from Ancient Nordic Elvish.
+
+The light grid you bought actually has individual brightness controls; each light can have a brightness of zero or more. The lights all start at zero.
+
+The phrase turn on actually means that you should increase the brightness of those lights by 1.
+
+The phrase turn off actually means that you should decrease the brightness of those lights by 1, to a minimum of zero.
+
+The phrase toggle actually means that you should increase the brightness of those lights by 2.
+
+What is the total brightness of all lights combined after following Santa's instructions?
+
+For example:
+
+turn on 0,0 through 0,0 would increase the total brightness by 1.
+toggle 0,0 through 999,999 would increase the total brightness by 2000000.
+
 """
 
 
-from typing import Iterable, Tuple, TextIO
+from typing import Tuple, TextIO
 
 
 def run(inp: TextIO) -> Tuple[int, int]:
     """Returns lights lit"""
     prefixes = ["turn on", "turn off", "toggle"]
     light_states = list([0]*1000 for _ in range(1000))
+    light_brightness = list([0]*1000 for _ in range(1000))
 
     for line in inp:
         line = line.strip()
@@ -44,17 +63,23 @@ def run(inp: TextIO) -> Tuple[int, int]:
         start_x, start_y = (int(i) for i in start.split(","))
         end_x, end_y = (int(i) for i in end.split(","))
 
-        for ix in range(start_x, end_x):
-            for iy in range(start_y, end_y):
+        for ix in range(start_x, end_x+1):
+            for iy in range(start_y, end_y+1):
                 if prefix == "turn on":
                     light_states[ix][iy] = 1
+                    light_brightness[ix][iy] += 1
                 elif prefix == "turn off":
                     light_states[ix][iy] = 0
+                    if light_brightness[ix][iy] > 0:
+                        light_brightness[ix][iy] -= 1
                 else:
                     light_states[ix][iy] = int(not light_states[ix][iy])
+                    light_brightness[ix][iy] += 2
     lights_on = 0
-    for row in light_states:
-        for col in row:
-            lights_on += col
+    total_brightness = 0
+    for row_state, row_brightness in zip(light_states, light_brightness):
+        for col_state, col_brightness in zip(row_state, row_brightness):
+            lights_on += col_state
+            total_brightness += col_brightness
 
-    return (lights_on, None)
+    return (lights_on, total_brightness)
