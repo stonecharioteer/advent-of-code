@@ -1,4 +1,5 @@
-"""--- Day 8: Matchsticks ---
+r'''
+--- Day 8: Matchsticks ---
 Space on the sleigh is limited this year, and so Santa will be bringing his list as a digital copy. He needs to know how much space it will take up when stored.
 
 It is common in many programming languages to provide a way to escape special characters in strings. For example, C, JavaScript, Perl, Python, and even PHP handle special characters in very similar ways.
@@ -17,13 +18,21 @@ Disregarding the whitespace in the file, what is the number of characters of cod
 
 For example, given the four strings above, the total number of characters of string code (2 + 5 + 10 + 6 = 23) minus the total number of characters in memory for string values (0 + 3 + 7 + 1 = 11) is 23 - 11 = 12.
 
-"""
+'''
 from typing import TextIO, Tuple
 
 
 def run(inp: TextIO) -> Tuple[int, int]:
     """Solution for day 8 of 2015"""
-    part_1 = None
+    lengths = []
+    true_lengths = []
+    for line in inp:
+        true_lengths.append(len(line.strip()))
+        clean_line = eval(line)
+        lengths.append(len((clean_line.strip())))
+        print(clean_line.strip(), repr(line.strip()), lengths[-1], true_lengths[-1])
+    part_1 = sum(true_lengths) - sum(lengths)
     part_2 = None
-
+    # 1556 is too high
+    # 1256 is too low
     return (part_1, part_2)
