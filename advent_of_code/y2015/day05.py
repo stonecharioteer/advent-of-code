@@ -56,7 +56,6 @@ def run(inp: Iterable) -> Tuple[int, int]:
         nice_1 = all([contains_no_naughty_words, contains_3_or_more_vowels, contains_doubles])
         if nice_1:
             count_nice_1 += 1
-        # print(f"{line=}, {contains_no_naughty_words=}, {contains_3_or_more_vowels=}, {contains_doubles=}")
         twice_pair = False
         for x,y in zip(line[:-1],line[1:]):
             twice_pair = line.count(f"{x}{y}") >= 2
