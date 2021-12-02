@@ -4,6 +4,21 @@ Advent of Code : Python
 
 This folder contains the python solutions.
 
+-------------------------
+Local Setup
+-------------------------
+
+I use `poetry` to manage my virtual environment, so head over to
+[https://python-poetry.org](https://python-poetry.org/) to get
+the CLI and create a shell with:
+
+```bash
+poetry shell
+poetry install
+```
+
+I recommend Python > 3.9.
+
 ---------------------------
 Adding a New Year
 ---------------------------
