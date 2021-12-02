@@ -7,7 +7,7 @@ from advent_of_code import tools
 
 
 @click.command("aoc")
-@click.argument("year", type=click.IntRange(min=2015, max=2019))
+@click.argument("year", type=click.IntRange(min=2015, max=2021))
 @click.argument("day", type=click.IntRange(min=1, max=25))
 @click.option(
     "--file", "-f", type=click.File(lazy=True), required=True,
