@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "advent-of-code"
+version = "2021"
+description = "My attempts at Advent of Code"
+authors = ["Vinay Keerthi <11478411+stonecharioteer@users.noreply.github.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+click = "^8.0.3"
+mypy = "^0.910"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
