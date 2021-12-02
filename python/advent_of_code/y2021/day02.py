@@ -41,7 +41,7 @@ by your final depth?
 """
 from typing import Iterable, Tuple
 
-def run(inp: Iterable) -> Tuple(int, int):
+def run(inp: Iterable) -> Tuple[int, int]:
     """Solution for 2021 Day 2"""
     data = inp.read().splitlines()
     horizontal = 0
