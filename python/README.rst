@@ -1,6 +1,7 @@
 ==========================
 Advent of Code : Python
 ==========================
+.. outline::
 
 This folder contains the python solutions.
 
@@ -19,12 +20,26 @@ poetry install
 
 I recommend Python > 3.9.
 
+Using the CLI
+====================
+
 After installation, you can use the CLI:
 
-```bash
-./aoc.py 2021 1 ../inputs/2021/day01.txt
-```
----------------------------
+.. code-block:: bash
+
+    ./aoc.py --help
+    ./aoc.py solve 2021 1 ../inputs/2021/day01.txt
+    ./aoc.py create 2021 3
+
+The ``create`` command makes use of ``template.py``, which you can modify to
+suite your purposes.
+
+Manual Operation
+======================
+
+If you want to do things the manual (*sic* the **hard** way), then you can
+follow the below instructions.
+
 Adding a New Year
 ---------------------------
 
@@ -33,7 +48,7 @@ Create a folder titled: ``yYYYY`` where ``YYYY`` is the year inside the
 this folder.
 
 Adding a New Day
-==================
+---------------------------
 
 To add the solution for a new day, create ``dayXX.py`` in the respective
 `yyYYYY` folder, where ``XX`` is the day number. AoC days range from 01-25.
@@ -43,4 +58,3 @@ solution(s). The first item returned is the first solution, while the second
 item returned is the second half of the solution.
 
 Make sure that you copy the problem statement into the docstring for the day.
-

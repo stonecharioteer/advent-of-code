@@ -12,6 +12,7 @@ mypy = "^0.910"
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
 ipython = "^7.30.0"
+Jinja2 = "^3.0.3"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
