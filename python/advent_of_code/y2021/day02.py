@@ -43,4 +43,19 @@ from typing import Iterable, Tuple
 
 def run(inp: Iterable) -> Tuple(int, int):
     """Solution for 2021 Day 2"""
-    return (0, 0)
+    data = inp.read().splitlines()
+    horizontal = 0
+    depth = 0
+    for instruction in data:
+        direction, distance = instruction.split()
+        distance = int(distance)
+        if direction == "forward":
+            horizontal += distance
+        elif direction == "down":
+            depth += distance
+        elif direction == "up":
+            depth -= distance
+
+
+    
+    return (horizontal*depth, 0)
