@@ -114,14 +114,16 @@ def count_increments(data):
     return increments
 
 def run(inp: Iterable) -> Tuple[int, int]:
-    """Solution for Day 01 2021"""
+    """Solution for Day 01 2021
+    
+    While not my original solution, I've refactored part 2 to use
+    logic someone showed me on `reddit. <https://np.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmwtvis/>`_
+    """
     # clean the dataset
     dataset = [int(x.strip()) for x in inp if x.strip() != ""]
     increments = count_increments(dataset)
     # part 2
     # this needs sliding windows:
     window_size = 3
-    windows = [sum(dataset[i:i+window_size]) for i in range(len(dataset) - (window_size - 1))]
-    assert len(dataset) - len(windows) == (window_size-1), f"{len(dataset)=}, {len(windows)=}"
-    increasing_windows = count_increments(windows)
+    increasing_windows = sum(dataset[i] > dataset[i-window_size] for i in range(window_size, len(dataset))) 
     return (increments, increasing_windows)
