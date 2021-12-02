@@ -19,6 +19,11 @@ poetry install
 
 I recommend Python > 3.9.
 
+After installation, you can use the CLI:
+
+```bash
+./aoc.py 2021 1 ../inputs/2021/day01.txt
+```
 ---------------------------
 Adding a New Year
 ---------------------------
