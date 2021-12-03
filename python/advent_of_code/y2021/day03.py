@@ -73,10 +73,12 @@ The bit criteria depends on which type of rating value you want to find:
     To find oxygen generator rating, determine the most common value (0 or 1)
     in the current bit position, and keep only numbers with that bit in that
     position. If 0 and 1 are equally common, keep values with a 1 in the
-    position being considered.  To find CO2 scrubber rating, determine the
-    least common value (0 or 1) in the current bit position, and keep only
-    numbers with that bit in that position. If 0 and 1 are equally common, keep
-    values with a 0 in the position being considered.
+    position being considered. 
+
+    To find CO2 scrubber rating, determine the least common value (0 or 1) in
+    the current bit position, and keep only numbers with that bit in that
+    position. If 0 and 1 are equally common, keep values with a 0 in the
+    position being considered.
 
 For example, to determine the oxygen generator rating value using the same
 example diagnostic report from above:
@@ -116,13 +118,27 @@ the life support rating of the submarine? (Be sure to represent your answer in
         decimal, not binary.)
 
 """
-from typing import Tuple, Iterable
+from typing import Tuple, List, Iterable
 
 
 def run(inp: Iterable) -> Tuple[int, int]:
     """Solution for 2021 day 3"""
     data = inp.read().splitlines()
-    frequencies = [[0,0] for _ in range(12)]
+    return binary_diagonistic(data)
+
+
+def binary_diagonistic(data: List) -> Tuple[int, int]:
+    """Core logic of the function"""
+    binary_precision = len(data[0])
+    frequencies = [[0,0] for _ in range(binary_precision)]
+    # keep count of the frequencies of the values.
+    # the `frequencies` array has 1 list for each binary value point.
+    # the input dataset seems to have 12 places only.
+    # if this should change, I can instead read the first value and
+    # figure out the precision / leading zeroes.
+    # if that value changes, then I can instead figure out the "longest"
+    # value and then add leading zeroes for the rest. Either way,
+    # this is a good enough approach
     for item in data: 
         for ix, val in enumerate(item):
             if val == "0":
@@ -139,6 +155,24 @@ def run(inp: Iterable) -> Tuple[int, int]:
     epsilon_binary = f"0b{epsilon}"
     epsilon_int = int(epsilon_binary, 2)
     part_1 = gamma_int * epsilon_int
-    part_2 = 0
+
+    filtered_data = data[:]
+    for ix, (zeroes, ones) in enumerate(frequencies):
+        # at each position, filter by the items that have the dominant value
+        filter = "0" if zeroes > ones else "1"
+        filtered_data = [x for x in filtered_data if x[ix] == filter]
+        if len(filtered_data) == 1:
+            break
+    assert len(filtered_data) == 1 
+    oxygen_generator_rating = filtered_data[0]
+    filtered_data = data[:]
+    for ix, (zeroes, ones) in enumerate(frequencies):
+        filter = "0" if zeroes <= ones else "1"
+        filtered_data = [x for x in filtered_data if x[ix] == filter]
+        if len(filtered_data) == 1:
+            break
+    assert len(filtered_data) == 1
+    co2_scrubber_rating = filtered_data[0]
+    part_2 = int(f"0b{oxygen_generator_rating}", 2) * int(f"0b{co2_scrubber_rating}", 2)
 
     return (part_1, part_2)
