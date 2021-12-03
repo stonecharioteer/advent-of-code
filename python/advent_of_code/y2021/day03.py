@@ -157,10 +157,16 @@ def binary_diagonistic(data: List) -> Tuple[int, int]:
     part_1 = gamma_int * epsilon_int
 
     filtered_data = data[:]
+    filtered_frequencies = frequencies[:]
     for ix, (zeroes, ones) in enumerate(frequencies):
         # at each position, filter by the items that have the dominant value
+        # FIXME: I need to recalculate `frequencies` for the items that have remained.
+        # Is there *any* way to avoid an O(N^2) algorithm here?
+        # FIXME: This implementation is wrong
+        print(ix, zeroes, ones)
         filter = "0" if zeroes > ones else "1"
         filtered_data = [x for x in filtered_data if x[ix] == filter]
+        print(filtered_data)
         if len(filtered_data) == 1:
             break
     assert len(filtered_data) == 1 
@@ -173,6 +179,7 @@ def binary_diagonistic(data: List) -> Tuple[int, int]:
             break
     assert len(filtered_data) == 1
     co2_scrubber_rating = filtered_data[0]
+    print(oxygen_generator_rating, co2_scrubber_rating)
     part_2 = int(f"0b{oxygen_generator_rating}", 2) * int(f"0b{co2_scrubber_rating}", 2)
 
     return (part_1, part_2)
