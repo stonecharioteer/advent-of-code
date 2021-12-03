@@ -57,6 +57,24 @@ from typing import Tuple, Iterable
 
 def run(inp: Iterable) -> Tuple[int, int]:
     """Solution for 2021 day 3"""
-    part_1 = 0
+    data = inp.read().splitlines()
+    frequencies = [[0,0] for _ in range(12)]
+    for item in data: 
+        for ix, val in enumerate(item):
+            if val == "0":
+                frequencies[ix][0]+=1
+            elif val == "1":
+                frequencies[ix][1] += 1
+    gamma = ["0" if x > y else "1" for x,y in frequencies ]
+    gamma = "".join(gamma)
+    gamma_binary = f"0b{gamma}"
+    gamma_int = int(gamma_binary, 2)
+
+    epsilon = ["0" if x < y else "1" for x,y in frequencies ]
+    epsilon = "".join(epsilon)
+    epsilon_binary = f"0b{epsilon}"
+    epsilon_int = int(epsilon_binary, 2)
+    part_1 = gamma_int * epsilon_int
     part_2 = 0
+
     return (part_1, part_2)
