@@ -75,7 +75,24 @@ get the final score, 188 * 24 = 4512.
 To guarantee victory against the giant squid, figure out which board will win
 first. What will your final score be if you choose that board?
 
-{{problem_statement_2 | default("Paste Problem Part 2 here")}}
+--- Part Two ---
+
+On the other hand, it might be wise to try a different strategy: let the giant
+squid win.
+
+You aren't sure how many bingo boards a giant squid could play at once, so
+rather than waste time counting its arms, the safe thing to do is to figure out
+which board will win last and choose that one. That way, no matter which boards
+it picks, it will win for sure.
+
+In the above example, the second board is the last to win, which happens after
+13 is eventually called and its middle column is completely marked. If you were
+to keep playing until this point, the second board would have a sum of unmarked
+numbers equal to 148 for a final score of 148 * 13 = 1924.
+
+Figure out which board will win last. Once it wins, what would its final score
+be?
+
 """
 from typing import Tuple, Iterable, List
 
@@ -103,8 +120,30 @@ def squidgame_bingo_score(data) -> Tuple[int, int]:
                 break
         if part_1 is not None:
             break
-
+    # solve for part 2
+    # note that I can technically do these steps in the first loop itself,
+    # but O(N) + O(N) = O(N), since the constant in 2*O(N) doesn't _really_ matter
     part_2 = 0
+    # reconstruct the boards for a fresh start
+    boards = construct_boards(data[2:])
+    # need to lose, so have to find which will win last.
+    board_win_order = []
+    last_number_call = None
+    for draw in random_draw_order:
+        for board_index, board in enumerate(boards):
+            if board_index not in board_win_order:
+                found_value = board.set_state(draw)
+                if found_value:
+                    if board.has_won:
+                        board_win_order.append(board_index)
+                        last_number_call = draw
+    assert isinstance(last_number_call, int), (
+            "There seems to be an error in the loop, it hasn't stored the draw number when the last board won")
+    last_board_index = board_win_order[-1]
+    last_board_to_win = boards[last_board_index]
+    board_unmarked_sum = last_board_to_win.unmarked_sum
+    part_2 = board_unmarked_sum * last_number_call
+
     return (part_1, part_2)
 
 

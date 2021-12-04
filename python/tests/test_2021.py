@@ -54,7 +54,7 @@ def test_2021_day04():
     result = squidgame_bingo_score(data)
     assert isinstance(result, tuple)
     assert result[0] == 4512, "Part 1 is wrong"
-    raise NotImplementedError("Part 2 is pending")
+    assert result[1] == 1924, "Part 2 is wrong"
 
 
 
