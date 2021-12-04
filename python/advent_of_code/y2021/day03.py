@@ -158,28 +158,43 @@ def binary_diagonistic(data: List) -> Tuple[int, int]:
 
     filtered_data = data[:]
     filtered_frequencies = frequencies[:]
-    for ix, (zeroes, ones) in enumerate(frequencies):
+    for ix, _ in enumerate(frequencies):
         # at each position, filter by the items that have the dominant value
         # FIXME: I need to recalculate `frequencies` for the items that have remained.
         # Is there *any* way to avoid an O(N^2) algorithm here?
         # FIXME: This implementation is wrong
-        print(ix, zeroes, ones)
+        zeroes, ones = filtered_frequencies[ix]
         filter = "0" if zeroes > ones else "1"
         filtered_data = [x for x in filtered_data if x[ix] == filter]
-        print(filtered_data)
         if len(filtered_data) == 1:
             break
+        # recalculate the frequencies using filtered data
+        filtered_frequencies = [[0,0] for _ in range(binary_precision)]
+        for item in filtered_data: 
+            for ix, val in enumerate(item):
+                if val == "0":
+                    filtered_frequencies[ix][0]+=1
+                elif val == "1":
+                    filtered_frequencies[ix][1] += 1
     assert len(filtered_data) == 1 
     oxygen_generator_rating = filtered_data[0]
     filtered_data = data[:]
-    for ix, (zeroes, ones) in enumerate(frequencies):
+    for ix, _ in enumerate(frequencies):
+        zeroes, ones = filtered_frequencies[ix]
         filter = "0" if zeroes <= ones else "1"
         filtered_data = [x for x in filtered_data if x[ix] == filter]
         if len(filtered_data) == 1:
             break
+        # recalculate the frequencies using filtered data
+        filtered_frequencies = [[0,0] for _ in range(binary_precision)]
+        for item in filtered_data: 
+            for ix, val in enumerate(item):
+                if val == "0":
+                    filtered_frequencies[ix][0]+=1
+                elif val == "1":
+                    filtered_frequencies[ix][1] += 1
     assert len(filtered_data) == 1
     co2_scrubber_rating = filtered_data[0]
-    print(oxygen_generator_rating, co2_scrubber_rating)
     part_2 = int(f"0b{oxygen_generator_rating}", 2) * int(f"0b{co2_scrubber_rating}", 2)
 
     return (part_1, part_2)
