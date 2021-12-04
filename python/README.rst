@@ -1,7 +1,8 @@
 ==========================
 Advent of Code : Python
 ==========================
-.. outline::
+
+.. sections:: Sections
 
 This folder contains the python solutions.
 
@@ -13,10 +14,10 @@ I use `poetry` to manage my virtual environment, so head over to
 [https://python-poetry.org](https://python-poetry.org/) to get
 the CLI and create a shell with:
 
-```bash
-poetry shell
-poetry install
-```
+.. code-block:: bash
+
+    poetry shell
+    poetry install
 
 I recommend Python > 3.9.
 
@@ -58,3 +59,19 @@ solution(s). The first item returned is the first solution, while the second
 item returned is the second half of the solution.
 
 Make sure that you copy the problem statement into the docstring for the day.
+
+Testing
+========================
+
+I'm trying to write tests to check for the "sample" problem that's given
+with the problem description. I've used ``pytest`` for this.
+
+You can run the tests using the following commands:
+
+
+.. code-block:: bash
+
+    pytest # this will run tests for all years
+    pytest -k 2021 # this will run all tests for 2021
+    pytest -k 2021_day04 # this will run the test for 2021 day 4
+
