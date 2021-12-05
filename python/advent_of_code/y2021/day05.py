@@ -59,6 +59,7 @@ lines overlap?
 {{problem_statement_2 | default("Paste Problem Part 2 here")}}
 """
 from typing import Tuple, Iterable
+import warnings
 
 
 def run(inp: Iterable) -> Tuple[int, int]:
@@ -67,9 +68,37 @@ def run(inp: Iterable) -> Tuple[int, int]:
     result = hydrothermal_vent_overlaps(data)
     return result
 
+
 def hydrothermal_vent_overlaps(data) -> Tuple[int, int]:
     """Solves for the hydrothermal vent overlap problem"""
-
-    part_1 = 0
+    # One way to do this would be to determine all the points in each line,
+    # and then loop through all the points on the "floor",
+    # but there is no real need to loop through *all* the points.
+    # instead, loop only through the points on that are definitely
+    # covered by lines.
+    from collections import defaultdict
+    points = defaultdict(int)
+    for item in data:
+        start, end = item.strip().split(" -> ")
+        x_1, y_1 = start.split(",")
+        x_1, y_1 = int(x_1), int(y_1)
+        x_2, y_2 = end.split(",")
+        x_2, y_2 = int(x_2), int(y_2)
+        # we're being asked to consider only the horizontal or vertical lines.
+        if x_1 == x_2:
+            y_range = range(y_1, y_2 + 1) if y_1 < y_2 else range(y_2, y_1 + 1)
+            for y in y_range:
+                points[f"{x_1},{y}"] += 1
+        elif y_1 == y_2:
+            x_range = range(x_1, x_2 + 1) if x_1 < x_2 else range(x_2, x_1 + 1)
+            for x in x_range:
+                points[f"{x},{y_1}"] += 1
+        else:
+            # warnings.warn("Ignoring {} because it's not horizontal or vertical.".format(item))
+            # The problem statement says that one of these will be equal to the
+            # other.
+            pass
+     
+    part_1 = len([x for x in points.keys() if points[x] >= 2])
     part_2 = 0
     return (part_1, part_2)

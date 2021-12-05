@@ -71,8 +71,8 @@ def test_2021_day05():
         0,0 -> 8,8
         5,5 -> 8,2
     """)
-    data = data.strip.split("\n") 
+    data = data.strip().split("\n") 
     result = hydrothermal_vent_overlaps(data)
     assert isinstance(result , tuple)
     assert result[0] == 5, "Part 1 is wrong"
-    NotImplementedError("Part 2 is pending")
+    raise NotImplementedError("Part 2 is pending")
