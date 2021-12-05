@@ -75,4 +75,4 @@ def test_2021_day05():
     result = hydrothermal_vent_overlaps(data)
     assert isinstance(result , tuple)
     assert result[0] == 5, "Part 1 is wrong"
-    raise NotImplementedError("Part 2 is pending")
+    assert result[1] == 12, "Part 2 is wrong"
