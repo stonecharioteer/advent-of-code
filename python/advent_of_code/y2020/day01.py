@@ -37,7 +37,19 @@ them together produces 1721 * 299 = 514579, so the correct answer is 514579.
 Of course, your expense report is much larger. Find the two entries that sum to
 2020; what do you get if you multiply them together?
 
-{{problem_statement_2 | default("Paste Problem Part 2 here")}}
+--- Part Two ---
+
+The Elves in accounting are thankful for your help; one of them even
+offers you a starfish coin they had left over from a past vacation. They
+offer you a second one if you can find three numbers in your expense
+report that meet the same criteria.
+
+Using the above example again, the three entries that sum to 2020 are
+979, 366, and 675. Multiplying them together produces the answer,
+241861950.
+
+In your expense report, what is the product of the three entries that sum
+to 2020?
 """
 from typing import Tuple, Iterable
 
@@ -69,3 +81,26 @@ def report_repair(data) -> Tuple[int, int]:
         counter += 1
     part_2 = None
     return (part_1, part_2)
+
+
+def report_repair_itertools(data) -> Tuple[int, int]:
+    """Calculates expense report using itertools.combinations"""
+    from itertools import combinations
+    required_sum = 2020
+    data =[int(x) for x in data]
+
+    def prod(l):
+        """Returns the product of all items in a list"""
+        product = 1
+        if 0 in l:
+            # failsafe to save time, naturally
+            return 0
+        for item in l:
+            product *= item
+        return product
+    
+    part_1 = prod([item for item in combinations(data, 2) if sum(item) == required_sum][0])
+    part_2 = prod([item for item in combinations(data, 3) if sum(item) == required_sum][0])
+    return part_1, part_2
+
+
