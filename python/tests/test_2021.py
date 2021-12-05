@@ -2,6 +2,7 @@ import textwrap
 
 from advent_of_code.y2021.day03 import binary_diagonistic
 from advent_of_code.y2021.day04 import squidgame_bingo_score
+from advent_of_code.y2021.day05 import hydrothermal_vent_overlaps
 
 
 def test_2021_day03():
@@ -56,5 +57,22 @@ def test_2021_day04():
     assert result[0] == 4512, "Part 1 is wrong"
     assert result[1] == 1924, "Part 2 is wrong"
 
-
-
+def test_2021_day05():
+    """Tests that the simple testcase for 2021 day 05 works"""
+    data = textwrap.dedent("""
+        0,9 -> 5,9
+        8,0 -> 0,8
+        9,4 -> 3,4
+        2,2 -> 2,1
+        7,0 -> 7,4
+        6,4 -> 2,0
+        0,9 -> 2,9
+        3,4 -> 1,4
+        0,0 -> 8,8
+        5,5 -> 8,2
+    """)
+    data = data.strip.split("\n") 
+    result = hydrothermal_vent_overlaps(data)
+    assert isinstance(result , tuple)
+    assert result[0] == 5, "Part 1 is wrong"
+    NotImplementedError("Part 2 is pending")
