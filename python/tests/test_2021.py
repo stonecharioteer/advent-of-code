@@ -76,3 +76,13 @@ def test_2021_day05():
     assert isinstance(result , tuple)
     assert result[0] == 5, "Part 1 is wrong"
     assert result[1] == 12, "Part 2 is wrong"
+
+def test_day_06():
+    """Tests that the simple testcase for 2021 day 06 works"""
+    from advent_of_code.y2021.day06 import lanternfish
+    data = "3,4,3,1,2"
+    result = lanternfish(data) 
+    assert isinstance(result, tuple)
+    print(result)
+    assert result[0] == 5934, "Part 1 is wrong"
+    assert result[1] == 26984457539, "Part 2 does not work"
