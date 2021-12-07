@@ -81,7 +81,6 @@ Determine the horizontal position that the crabs can align to using the least
 fuel possible so they can make you an escape route! How much fuel must they
 spend to align to that position?"""
 from typing import Tuple, Iterable
-import functools 
 
 
 def run(inp: Iterable) -> Tuple[int, int]:
@@ -95,11 +94,26 @@ def whale_treachery(data) -> Tuple[int, int]:
     position that keeps them safe.""" 
     import statistics
     import math
+
     data = [int(x) for x in data.split(",")]
     # this is a median calculation problem. 
     median_point = math.floor(statistics.median(data))
     part_1 = sum([abs(x-median_point) for x in data])
     # part 2 needs gaussian summation
-    mean_point = round(statistics.mean(data))
-    part_2 = sum([sum(range(point-mean_point+1)) for point in data])
+    # this should be the mean point, according to my intuition,
+    # but it isn't. So I'm looping through *all* points and calculating the
+    # sum of the gaussian sums of the distance. I don't like this solutio. I
+    # don't like this solution.
+    min_fuel_cost = float("inf")
+    min_point = 0
+    for x in range(max(data)+1):
+        fuel_cost = sum([gaussian_sum(abs(point-x)) for point in data])
+        if fuel_cost < min_fuel_cost:
+            min_fuel_cost = fuel_cost
+            min_point = x
+    part_2 = min_fuel_cost
     return (part_1, part_2)
+
+
+def gaussian_sum(n):
+    return n * (n+1) // 2

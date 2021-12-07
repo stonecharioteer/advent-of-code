@@ -93,4 +93,11 @@ def test_day_07():
     result = whale_treachery(data)
     assert isinstance(result, tuple)
     assert result[0] == 37, "Part 1 is wrong"
-    assert result[1] == 206, "Part 2 is wrong"
+    assert result[1] == 168, "Part 2 is wrong"
+
+def test_gaussian_sum():
+    """Tests the gaussian sum formula"""
+    from advent_of_code.y2021.day07 import gaussian_sum
+    for i in range(1, 10001):
+        assert gaussian_sum(i) == sum(range(i+1)), "Gaussian sum formula is implemented wrong"
+
