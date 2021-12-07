@@ -90,7 +90,6 @@ Consider all of the lines. At how many points do at least two lines overlap?
 
 """
 from typing import Tuple, Iterable
-import warnings
 
 
 def run(inp: Iterable) -> Tuple[int, int]:
