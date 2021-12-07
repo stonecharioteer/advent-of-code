@@ -83,6 +83,14 @@ def test_day_06():
     data = "3,4,3,1,2"
     result = lanternfish(data) 
     assert isinstance(result, tuple)
-    print(result)
     assert result[0] == 5934, "Part 1 is wrong"
     assert result[1] == 26984457539, "Part 2 does not work"
+
+def test_day_07():
+    """Tests that the simple test case for 2021 day 07 works"""
+    from advent_of_code.y2021.day07 import whale_treachery
+    data = "16,1,2,0,4,2,7,1,2,14"
+    result = whale_treachery(data)
+    assert isinstance(result, tuple)
+    assert result[0] == 37, "Part 1 is wrong"
+    assert result[1] == 206, "Part 2 is wrong"
