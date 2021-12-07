@@ -49,5 +49,5 @@ def test_day02():
     result = password_philosophy(data)
     assert isinstance(result, tuple)
     assert result[0] == 2, "Part 1 is wrong"
-    assert result[1] is not None, "Part 2 is Wrong"
+    assert result[1] == 1, "Part 2 is Wrong"
     

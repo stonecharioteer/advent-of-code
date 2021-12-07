@@ -145,7 +145,7 @@
 ## 2020
 
 - ☐ 2020-01 ☑️ python ☐ nodejs ☐ rust ☐ golang ☐ elixir ☐ ruby
-- ☐ 2020-02 ☐ python ☐ nodejs ☐ rust ☐ golang ☐ elixir ☐ ruby
+- ☐ 2020-02 ☑️ python ☐ nodejs ☐ rust ☐ golang ☐ elixir ☐ ruby
 - ☐ 2020-03 ☐ python ☐ nodejs ☐ rust ☐ golang ☐ elixir ☐ ruby
 - ☐ 2020-04 ☐ python ☐ nodejs ☐ rust ☐ golang ☐ elixir ☐ ruby
 - ☐ 2020-05 ☐ python ☐ nodejs ☐ rust ☐ golang ☐ elixir ☐ ruby

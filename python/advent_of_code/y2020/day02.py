@@ -33,8 +33,31 @@ their respective policies.
 
 How many passwords are valid according to their policies?
 
+--- Part Two ---
 
-{{problem_statement_2 | default("Paste Problem Part 2 here")}}
+While it appears you validated the passwords correctly, they don't seem to be
+what the Official Toboggan Corporate Authentication System is expecting.
+
+The shopkeeper suddenly realizes that he just accidentally explained the
+password policy rules from his old job at the sled rental place down the
+street! The Official Toboggan Corporate Policy actually works a little
+differently.
+
+Each policy actually describes two positions in the password, where 1 means the
+first character, 2 means the second character, and so on. (Be careful; Toboggan
+Corporate Policies have no concept of "index zero"!) Exactly one of these
+positions must contain the given letter. Other occurrences of the letter are
+irrelevant for the purposes of policy enforcement.
+
+Given the same example list from above:
+
+    1-3 a: abcde is valid: position 1 contains a and position 3 does not.
+    1-3 b: cdefg is invalid: neither position 1 nor position 3 contains b.
+    2-9 c: ccccccccc is invalid: both position 2 and position 9 contain c.
+
+How many passwords are valid according to the new interpretation of the
+policies?
+
 """
 from typing import Tuple, Iterable
 
@@ -49,7 +72,8 @@ def run(inp: Iterable) -> Tuple[int, int]:
 def password_philosophy(password_record):
     """Validates passwords according to the rules"""
     from collections import Counter
-    valid = 0
+    valid_1 = 0
+    valid_2 = 0
     for line in password_record:
         prefix, suffix = line.split("-")
         min_count = int(prefix)
@@ -57,6 +81,16 @@ def password_philosophy(password_record):
         letter = suffix[suffix.find(" ")+1:suffix.find(":")]
         input_password = suffix.split(":")[1].strip()
         letter_count = Counter(input_password)
+        # validate by the first part's rules
         if min_count <= letter_count[letter] <= max_count:
-            valid += 1
-    return valid, None
+            valid_1 += 1
+        # validate by the second part's rules
+        first_index = min_count - 1
+        second_index = max_count - 1
+        first_pos_contains_index = input_password[first_index] == letter
+        second_pos_contains_index = input_password[second_index] == letter
+        if first_pos_contains_index != second_pos_contains_index:
+            valid_2 += 1
+    part_1 = valid_1
+    part_2 = valid_2
+    return part_1, part_2
