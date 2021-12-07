@@ -24,7 +24,7 @@ I have wanted to get into the habit of doing these for quite some time.
     2. Golang
     3. Rust
     4. Nodejs
-    5. Haskell
+    5. Ruby
     6. Elixir
 
 
