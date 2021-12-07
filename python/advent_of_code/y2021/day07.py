@@ -116,4 +116,8 @@ def whale_treachery(data) -> Tuple[int, int]:
 
 
 def gaussian_sum(n):
+    """Implementing the formula Gauss discovered
+    to add all integers upto N, `explanation here.
+    <https://letstalkscience.ca/educational-resources/backgrounders/gauss-summation>`_
+    """
     return n * (n+1) // 2
