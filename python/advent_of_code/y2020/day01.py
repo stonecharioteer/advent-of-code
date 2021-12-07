@@ -59,27 +59,34 @@ def run(inp: Iterable) -> Tuple[int, int]:
     return report_repair(inp)
 
 
+def two_sum(data, required_sum):
+    """Given a list and a required sum, returns 2 items which could form the
+    required sum"""
+    sorted_data = sorted(data)
+    complements = {}
+    for value in sorted_data:
+        complements[value] = required_sum - value
+    for value in sorted_data:
+        if complements.get(required_sum - value) is not None:
+            return (value, complements[value])
+
+
 def report_repair(data) -> Tuple[int, int]:
     """Calculates expense report"""
     required_sum = 2020
     data = [int(x) for x in data]
-    left = 0
-    right = len(data) - 1
     sorted_data = sorted(data)
-    part_1 = None
-    counter = 0
-    while left < right:
-        left_value = sorted_data[left]
-        right_value = sorted_data[right]
-        if left_value + right_value > required_sum:
-            right -= 1
-        elif left_value + right_value < required_sum:
-            left += 1
-        else:
-            part_1 = left_value * right_value
-            break
-        counter += 1
+    two_sum_value = two_sum(sorted_data, required_sum)
+    assert two_sum_value is not None
+    part_1 = two_sum_value[0] * two_sum_value[1]
     part_2 = None
+    for ix, value in enumerate(sorted_data):
+        if ix > 0 and ix < len(sorted_data) - 1:
+            complement_value = 2020 - value
+            two_sum_value = two_sum(sorted_data[:ix] + sorted_data[ix+1:], complement_value)
+            if two_sum_value is not None:
+                part_2 = value * two_sum_value[0] * two_sum_value[1]
+                break
     return (part_1, part_2)
 
 
@@ -87,7 +94,7 @@ def report_repair_itertools(data) -> Tuple[int, int]:
     """Calculates expense report using itertools.combinations"""
     from itertools import combinations
     required_sum = 2020
-    data =[int(x) for x in data]
+    data = [int(x) for x in data]
 
     def prod(l):
         """Returns the product of all items in a list"""
