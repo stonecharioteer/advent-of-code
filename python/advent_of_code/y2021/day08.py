@@ -106,6 +106,14 @@ def run(inp: Iterable) -> Tuple[int, int]:
     return seven_segment_search(data)
 
 def seven_segment_search(data):
-    part_1 = 0
+    count = 0
+    for line in data:
+        left, right = line.strip().split("|")
+        inputs = left.strip().split()
+        outputs = right.strip().split()
+        for output in outputs:
+            if len(output) in [2, 3, 4, 7]:
+                count+=1
+    part_1 = count
     part_2 = 0
     return part_1, part_2

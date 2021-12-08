@@ -118,6 +118,7 @@ def test_day_08():
         egadfb cdbfeg cegd fecab cgb gbdefca cg fgcdab egfdb bfceg | gbdfcae bgc cg cgb
         gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce
     """)
+    data = data.strip().split("\n")
     result = seven_segment_search(data)
     assert isinstance(result, tuple)
     assert result[0] == 26, "Part 1 is wrong"
