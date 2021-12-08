@@ -101,3 +101,34 @@ def test_gaussian_sum():
     for i in range(1, 10001):
         assert gaussian_sum(i) == sum(range(i+1)), "Gaussian sum formula is implemented wrong"
 
+
+def test_day_08():
+    """Tests that the simple test case for 2021 day 8 works"""
+    from advent_of_code.y2021.day08 import seven_segment_search
+
+    data = textwrap.dedent("""
+        be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb |
+        fdgacbe cefdb cefbgd gcbe
+        edbfga begcd cbg gc gcadebf fbgde acbgfd abcde gfcbed gfec |
+        fcgedb cgb dgebacf gc
+        fgaebd cg bdaec gdafb agbcfd gdcbef bgcad gfac gcb cdgabef |
+        cg cg fdcagb cbg
+        fbegcd cbd adcefb dageb afcb bc aefdc ecdab fgdeca fcdbega |
+        efabcd cedba gadfec cb
+        aecbfdg fbg gf bafeg dbefa fcge gcbea fcaegb dgceab fcbdga |
+        gecf egdcabf bgf bfgea
+        fgeab ca afcebg bdacfeg cfaedg gcfdb baec bfadeg bafgc acf |
+        gebdcfa ecba ca fadegcb
+        dbcfg fgd bdegcaf fgec aegbdf ecdfab fbedc dacgb gdcebf gf |
+        cefg dcbef fcge gbcadfe
+        bdfegc cbegaf gecbf dfcage bdacg ed bedf ced adcbefg gebcd |
+        ed bcgafe cdgba cbgef
+        egadfb cdbfeg cegd fecab cgb gbdefca cg fgcdab egfdb bfceg |
+        gbdfcae bgc cg cgb
+        gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc |
+        fgae cfgab fg bagce
+    """)
+    result = seven_segment_search(data)
+    assert isinstance(result, tuple)
+    assert result[0] == 26, "Part 1 is wrong"
+    assert result[1] != 0, "Part 2 is wrong"
