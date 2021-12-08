@@ -106,14 +106,79 @@ def run(inp: Iterable) -> Tuple[int, int]:
     return seven_segment_search(data)
 
 def seven_segment_search(data):
-    count = 0
+    """Solves for the seven segment search"""
+    part_1 = 0
+    part_2 = 0
+    # simply count the output values that have a len of 2, 3, 4, or 7
+    # since 0, 4, 7, 8 have unique length codes
     for line in data:
         left, right = line.strip().split("|")
-        inputs = left.strip().split()
         outputs = right.strip().split()
         for output in outputs:
             if len(output) in [2, 3, 4, 7]:
-                count+=1
-    part_1 = count
-    part_2 = 0
+                part_1 += 1
+        # need to determine the second part of the solution
     return part_1, part_2
+
+
+def guess_letter_mapping(inputs):
+    """Given an input string for the above problem, this 
+    returns a dictionary that maps out the possible values"""
+    # first, let's determine what *can* be determined.
+    # sort the letters alphabetically. This is not needed,
+    # not for this algorithm, but it makes development and
+    # debugging easier.
+    inputs = ["".join(sorted(x)) for x in inputs]
+    # next, sort the array into a list increasing in lengths 
+    inputs = sorted(inputs, key=lambda x: len(x))
+    # this returns a list that has the following lengths:
+    # [2, 3, 4, 5, 5, 5, 6, 6, 6, 7]
+    # this corresponds to the following possible values:
+    # [1, 7, 4, {2, 3, 5}, {0, 6, 9}, 8]
+    # construct a dictionary that holds the values that
+    # are possible to guess.
+    value_dict = {
+            inputs[0]: 1,
+            inputs[1]: 7,
+            inputs[2]: 4,
+            inputs[9]: 8
+    }
+    # reverse the dict so that we can access the hash with the numbers also.
+    rev_dict = dict((value, key) for key, value in value_dict.items())
+    # generate a dictionary with keys a-g, with values of None
+    cipher = dict((chr(x), None) for x in range(97, 97+7))
+    # now try figuring out the key
+    # looking at the one letter corresponding to `7` which isn't in `1`:
+    # 7 *should* contain acf
+    # 1 *should* contain cf
+    cipher["a"] = set(rev_dict[7]) - set(rev_dict[1])
+    # `a` has been determined, but c and f *can* be one of two values eac
+    cipher["c"] = set(rev_dict[7]).intersection(set(rev_dict[1]))
+    cipher["f"] = set(rev_dict[7]).intersection(set(rev_dict[1]))
+    # now, look at the other possible numbers, 4 and 8
+    # 4 *should* contain bcdf
+    # 8 *should* contain abcdefg
+    # the intersection of 4 with 8 will contain bcdf, and a is known
+    intersect_84 = set(rev_dict[8]).intersection(set(rev_dict[4]))
+    # remove `a` from this
+    intersect_84.discard(list(cipher["a"])[0])
+    # this will be either e or f. But we *know* a possible value for f is in
+    # cipher_dict["f"]
+    # Now, we only loop through the values which are
+    # yet undetermined.
+    for i_val in inputs:
+        print(i_val)
+        # Judging by the numbers, you can see which have *common* letters.
+        if len(i_val) == 6:
+            # if the length is 6, the value could be:
+            # 0, 6 or 9
+            value = None
+            value_dict[i_val] = "none"
+            pass
+        elif len(i_val) == 5:
+            # if the length is 5, the value could be:
+            # 2, 3 or 5
+            value_dict[i_val] = "none"
+            pass
+    import ipdb; ipdb.set_trace()
+    return cipher
