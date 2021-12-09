@@ -44,13 +44,46 @@ from typing import Tuple, Iterable
 
 def run(inp: Iterable) -> Tuple[int, int]:
     """Solution for 2021 day 9"""
-    part_1 = 0
-    part_2 = 0
-    return (part_1, part_2)
+    data = inp.read().splitlines()
+    return smoke_basin(data)
 
 
 def smoke_basin(data):
     """Solves the problem"""
     part_1 = 0
     part_2 = 0
+    mins = []
+    for ix, line in enumerate(data):
+        if ix == 0:
+            prev_line = None
+        else:
+            prev_line = data[ix-1]
+
+        if ix == len(data) - 1:
+            next_line = None
+        else:
+            next_line = data[ix+1]
+        for iy, val in enumerate(line):
+            if iy == 0:
+                left = None
+            else:
+                left = int(line[iy-1])
+            if iy == len(line) - 1:
+                right = None
+            else:
+                right = int( line[iy+1] )
+            if prev_line == None:
+                top = None
+            else:
+                top = int(prev_line[iy])
+            if next_line is None:
+                bottom = None
+            else:
+                bottom = int(next_line[iy])
+            current = int(val)
+            neighbors = [x for x in [top, right, bottom, left] if x is not None]
+            if all([current < neighbor for neighbor in neighbors]):
+                mins.append(current)
+                part_1 += (1 + current)
     return part_1, part_2
+
