@@ -122,30 +122,5 @@ def test_day_08():
     result = seven_segment_search(data)
     assert isinstance(result, tuple)
     assert result[0] == 26, "Part 1 is wrong"
-    assert result[1] != 0, "Part 2 is wrong"
+    assert result[1] == 61229, "Part 2 is wrong"
 
-
-def test_guess_letter_dict():
-    """Tests the logic that, given a sample input row
-    for day 8, can determine the correct mapping dictionary of letters to their
-    right counter parts."""
-    from advent_of_code.y2021.day08 import guess_letter_mapping
-    data = "be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb"
-
-    inputs = data.split()
-
-    cipher = guess_letter_mapping(inputs)
-    assert isinstance(cipher, dict)
-    assert set(cipher.keys()) - set(chr(x) for x in range(97, 97+7))
-    answer = {
-        "a": "d",
-        "b": "",
-        "c": "",
-        "d": "",
-        "e": "e",
-        "f": "",
-        "g": "",
-    }
-    for key, value in answer.items():
-        assert cipher[key] == value, f"The value of `{key}` is wrong!"
-    

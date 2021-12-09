@@ -95,8 +95,65 @@ a unique number of segments (highlighted above).
 In the output values, how many times do digits 1, 4, 7, or 8 appear?
 
 
-{{problem_statement_2 | default("Paste Problem Part 2 here")}}
-"""
+--- Part Two ---
+
+Through a little deduction, you should now be able to determine the remaining
+digits. Consider again the first example above:
+
+    acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf
+
+After some careful analysis, the mapping between signal wires and segments only
+make sense in the following configuration:
+
+ dddd
+e    a
+e    a
+ ffff
+g    b
+g    b
+ cccc
+
+So, the unique signal patterns would correspond to the following digits:
+
+    acedgfb: 8
+    cdfbe: 5
+    gcdfa: 2
+    fbcad: 3
+    dab: 7
+    cefabd: 9
+    cdfgeb: 6
+    eafb: 4
+    cagedb: 0
+    ab: 1
+
+Then, the four digits of the output value can be decoded:
+
+    cdfeb: 5
+    fcadb: 3
+    cdfeb: 5
+    cdbaf: 3
+
+Therefore, the output value for this entry is 5353.
+
+Following this same process for each entry in the second, larger example above,
+the output value of each entry can be determined:
+
+    fdgacbe cefdb cefbgd gcbe: 8394
+    fcgedb cgb dgebacf gc: 9781
+    cg cg fdcagb cbg: 1197
+    efabcd cedba gadfec cb: 9361
+    gecf egdcabf bgf bfgea: 4873
+    gebdcfa ecba ca fadegcb: 8418
+    cefg dcbef fcge gbcadfe: 4548
+    ed bcgafe cdgba cbgef: 1625
+    gbdfcae bgc cg cgb: 8717
+    fgae cfgab fg bagce: 4315
+
+Adding all of the output values in this larger example produces 61229.
+
+For each entry, determine all of the wire/segment connections and decode the
+four-digit output values. What do you get if you add up all of the output
+values?"""
 from typing import Tuple, Iterable
 
 
@@ -118,12 +175,24 @@ def seven_segment_search(data):
             if len(output) in [2, 3, 4, 7]:
                 part_1 += 1
         # need to determine the second part of the solution
+        inputs = left.strip().split()
+        numbers = guess_number_codes(inputs)
+        # now use this for the outputs
+        outputs = ["".join(sorted(x)) for x in outputs]
+        values = [str(numbers[val]) for val in outputs]
+        value = int("".join(values))
+        part_2 += value
     return part_1, part_2
 
 
-def guess_letter_mapping(inputs):
+def guess_number_codes(inputs):
     """Given an input string for the above problem, this 
-    returns a dictionary that maps out the possible values"""
+    returns a dictionary that maps out the possible values
+
+    Determining the mapping between alphabets is unnecessary.
+    Instead, it is better to figure out the mapping between
+    whole codes and numbers. This reduces the complexity of
+    this problem."""
     # first, let's determine what *can* be determined.
     # sort the letters alphabetically. This is not needed,
     # not for this algorithm, but it makes development and
@@ -137,48 +206,43 @@ def guess_letter_mapping(inputs):
     # [1, 7, 4, {2, 3, 5}, {0, 6, 9}, 8]
     # construct a dictionary that holds the values that
     # are possible to guess.
-    value_dict = {
+    values = {
             inputs[0]: 1,
             inputs[1]: 7,
             inputs[2]: 4,
             inputs[9]: 8
     }
-    # reverse the dict so that we can access the hash with the numbers also.
-    rev_dict = dict((value, key) for key, value in value_dict.items())
-    # generate a dictionary with keys a-g, with values of None
-    cipher = dict((chr(x), None) for x in range(97, 97+7))
-    # now try figuring out the key
-    # looking at the one letter corresponding to `7` which isn't in `1`:
-    # 7 *should* contain acf
-    # 1 *should* contain cf
-    cipher["a"] = set(rev_dict[7]) - set(rev_dict[1])
-    # `a` has been determined, but c and f *can* be one of two values eac
-    cipher["c"] = set(rev_dict[7]).intersection(set(rev_dict[1]))
-    cipher["f"] = set(rev_dict[7]).intersection(set(rev_dict[1]))
-    # now, look at the other possible numbers, 4 and 8
-    # 4 *should* contain bcdf
-    # 8 *should* contain abcdefg
-    # the intersection of 4 with 8 will contain bcdf, and a is known
-    intersect_84 = set(rev_dict[8]).intersection(set(rev_dict[4]))
-    # remove `a` from this
-    intersect_84.discard(list(cipher["a"])[0])
-    # this will be either e or f. But we *know* a possible value for f is in
-    # cipher_dict["f"]
-    # Now, we only loop through the values which are
-    # yet undetermined.
-    for i_val in inputs:
-        print(i_val)
-        # Judging by the numbers, you can see which have *common* letters.
-        if len(i_val) == 6:
-            # if the length is 6, the value could be:
-            # 0, 6 or 9
-            value = None
-            value_dict[i_val] = "none"
-            pass
-        elif len(i_val) == 5:
-            # if the length is 5, the value could be:
-            # 2, 3 or 5
-            value_dict[i_val] = "none"
-            pass
-    import ipdb; ipdb.set_trace()
-    return cipher
+    rev = dict((value, key) for key, value in values.items())
+    # first, identify the diff between 4 and 1, to get the `L` shape.
+    four_diff_one = set(rev[4]) - set(rev[1])
+    # now, loop through the values that *could* be 2, 3, or 5.
+    two_three_five = inputs[3:6] # since the inputs are sorted.
+    for item in two_three_five:
+        if set(rev[1]) - set(item) == set():
+            # `3` contains `1`
+            values[item] = 3
+            rev[3] = item
+        elif four_diff_one - set(item) == set():
+            # `5` contains `4` diff `1`
+            values[item] = 5
+            rev[5] = item
+        else:
+            # the only other possibility is `2`
+            values[item] = 2
+            rev[2] = item
+    # now, loop through the values that *could* be 0, 6 or 9 
+    zero_six_nine = inputs[6:9]
+    for item in zero_six_nine:
+        if set(rev[4]) - set(item) == set():
+            # `9` contains `4`
+            values[item] = 9
+            rev[9] = item
+        elif four_diff_one - set(item) == set():
+            # `6` contains `4` diff `1`
+            values[item] = 6
+            rev[6] = item
+        else:
+            # the only other possibility is `0`
+            values[item] = 0
+            rev[0] = item
+    return values
