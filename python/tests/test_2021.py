@@ -124,3 +124,19 @@ def test_day_08():
     assert result[0] == 26, "Part 1 is wrong"
     assert result[1] == 61229, "Part 2 is wrong"
 
+
+def test_day_09():
+    """Tests that the simple test case for 2021 09 works"""
+    from advent_of_code.y2021.day09 import smoke_basin
+    data = textwrap.dedent("""
+        2199943210
+        3987894921
+        9856789892
+        8767896789
+        9899965678
+    """)
+    data = data.strip().split()
+    result = smoke_basin(data)
+    assert isinstance(result, tuple)
+    assert result[0] == 15, "Part 1 is wrong"
+    assert result[1] != 0, "Part 2 is wrong"
