@@ -158,4 +158,24 @@ def test_get_neighbors():
     assert get_neighbors(matrix, (0,9)) == set([(0,8), (1,9)])
 
 
-    
+def test_day_10():
+    """Tests that the simple test case for 2021 10 works"""
+    from advent_of_code.y2021.day10 import syntax_scoring
+    data = textwrap.dedent("""
+        [({(<(())[]>[[{[]{<()<>>
+        [(()[<>])]({[<{<<[]>>(
+        {([(<{}[<>[]}>{[]{[(<()>
+        (((({<>}<{<{<>}{[]{[]{}
+        [[<[([]))<([[{}[[()]]]
+        [{[{({}]{}}([{[{{{}}([]
+        {<[[]]>}<{[{[{[]{()[[[]
+        [<(<(<(<{}))><([]([]()
+        <{([([[(<>()){}]>(<<{{
+        <{([{{}}[<[[[<>{}]]]>[]]
+    """)
+    data = data.strip().split("\n") 
+    result = syntax_scoring(data)
+    assert isinstance(result, tuple)
+    part_1, part_2 = result
+    assert part_1 == 26397, "Part 1 is wrong"
+    raise NotImplementedError("Haven't implemented the solution for part 2 yet")
