@@ -178,4 +178,4 @@ def test_day_10():
     assert isinstance(result, tuple)
     part_1, part_2 = result
     assert part_1 == 26397, "Part 1 is wrong"
-    raise NotImplementedError("Haven't implemented the solution for part 2 yet")
+    assert part_2 == 288957, "Part 2 is wrong"
