@@ -138,5 +138,24 @@ def test_day_09():
     data = data.strip().split()
     result = smoke_basin(data)
     assert isinstance(result, tuple)
-    assert result[0] == 15, "Part 1 is wrong"
-    assert result[1] != 0, "Part 2 is wrong"
+    part_1, part_2 = result
+    assert part_1 == 15, "Part 1 is wrong"
+    assert part_2 == 1134, "Part 2 is wrong"
+
+def test_get_neighbors():
+    """Tests the neighbors calculation algorithm for day 9 (BFS)"""
+    from advent_of_code.y2021.day09 import get_neighbors
+    matrix = [[0 for _ in range(10)] for _ in range(5)]
+    # left corner 
+    assert get_neighbors(matrix, (0,0)) == set([(0,1), (1,0)])
+    # some point in the middle
+    assert get_neighbors(matrix, (1,1)) == set([(1,2), (0,1), (1,0), (2,1)])
+    # point just before the right
+    assert get_neighbors(matrix, (1,8)) == set([(0,8), (2,8), (1,9), (1, 7)])
+    # point just before the right
+    assert get_neighbors(matrix, (3,1)) == set([(3,0), (2,1), (3,2), (4,1)])
+    # right corner
+    assert get_neighbors(matrix, (0,9)) == set([(0,8), (1,9)])
+
+
+    

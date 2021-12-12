@@ -85,7 +85,9 @@ The bottom-right basin, size 9:
 Find the three largest basins and multiply their sizes together. In the above
 example, this is 9 * 14 * 9 = 1134.
 
-What do you get if you multiply together the sizes of the three largest basins?"""
+What do you get if you multiply together the sizes of the three largest basins?
+"""
+from queue import Queue
 from typing import Tuple, Iterable
 
 
@@ -99,38 +101,101 @@ def smoke_basin(data):
     """Solves the problem"""
     part_1 = 0
     part_2 = 0
+    # create a matrix with the data
+    matrix = [[int(x) for x in line] for line in data]
     mins = []
-    for ix, line in enumerate(data):
+    for ix, line in enumerate(matrix):
         if ix == 0:
             prev_line = None
         else:
-            prev_line = data[ix-1]
+            prev_line = matrix[ix-1]
 
-        if ix == len(data) - 1:
+        if ix == len(matrix) - 1:
             next_line = None
         else:
-            next_line = data[ix+1]
+            next_line = matrix[ix+1]
         for iy, val in enumerate(line):
             if iy == 0:
                 left = None
             else:
-                left = int(line[iy-1])
+                left = line[iy-1]
             if iy == len(line) - 1:
                 right = None
             else:
-                right = int( line[iy+1] )
+                right = line[iy+1]
             if prev_line == None:
                 top = None
             else:
-                top = int(prev_line[iy])
+                top = prev_line[iy]
             if next_line is None:
                 bottom = None
             else:
-                bottom = int(next_line[iy])
-            current = int(val)
+                bottom = next_line[iy]
+            current = val
             neighbors = [x for x in [top, right, bottom, left] if x is not None]
             if all([current < neighbor for neighbor in neighbors]):
                 mins.append(current)
                 part_1 += (1 + current)
+
+    # part 2 is a graph traversal problem,
+    # breadth first traversal
+    # read up here: https://www.redblobgames.com/pathfinding/a-star/introduction.html
+
+    # create an empty array in which to hold the sums of basin depths
+    # we encounter
+    basins = []
+    visited = set()
+    # first, iterate through each row.
+
+    for row_number, row in enumerate(matrix):
+        for col_number, value in enumerate(row):
+            # now, get the `frontier` (see the above link)
+            frontier = Queue()
+            if value == 9:
+                continue
+            basin_points = set()
+            # add the current position to the `frontier`
+            if (row_number, col_number) in visited:
+                continue
+            frontier.put((row_number, col_number))
+            # as long as the `frontier` is not empty
+            while not frontier.empty():
+                current = frontier.get()
+                basin_points.add(current)
+                visited.add(current)
+                # calculate all the next neighbors for
+                # this current
+                neighbors = get_neighbors(matrix, current)
+                for pos in neighbors:
+                    r, c = pos
+                    # if this next item is a value *lower* than the
+                    # current value
+                    neighbor_value = matrix[r][c]
+                    if neighbor_value != 9 and pos not in visited:
+                        frontier.put(pos)
+                        basin_points.add(pos)
+            basin_size = len(basin_points)
+            basins.append(basin_size)
+    basins.sort()
+    three_largest_basins = basins[-3:]
+    part_2 = three_largest_basins[0]*three_largest_basins[1]*three_largest_basins[2]
     return part_1, part_2
 
+def get_neighbors(matrix, position):
+    """Given an m x n matrix and a position row x col, this returns a list of
+    positions of the neighbors, note that this has no parameters regarding the
+    filtering of a matrix."""
+    row, col = position
+    rows = len(matrix)
+    cols = len(matrix[0])
+    neighbors = set()
+    # calculate the neighbors for a given point in the 2D space
+    if row-1 != -1:
+        neighbors.add((row-1, col))
+    if col-1 != -1:
+        neighbors.add((row, col-1))
+    if row+1 <= rows-1:
+        neighbors.add((row+1, col))
+    if col+1 <= cols-1:
+        neighbors.add((row, col+1))
+    return neighbors
