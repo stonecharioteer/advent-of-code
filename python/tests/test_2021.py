@@ -1,3 +1,4 @@
+# vim: set foldmethod=indent:
 import textwrap
 
 from advent_of_code.y2021.day03 import binary_diagonistic
@@ -28,6 +29,7 @@ def test_2021_day03():
     assert result[0] == 198, "Part 1 is wrong"
     assert result[1] == 230, "Part 2 is wrong"
 
+
 def test_2021_day04():
     """Tests that the simple testcase for 2021 day 04 works"""
     data = textwrap.dedent("""
@@ -57,6 +59,7 @@ def test_2021_day04():
     assert result[0] == 4512, "Part 1 is wrong"
     assert result[1] == 1924, "Part 2 is wrong"
 
+
 def test_2021_day05():
     """Tests that the simple testcase for 2021 day 05 works"""
     data = textwrap.dedent("""
@@ -77,6 +80,7 @@ def test_2021_day05():
     assert result[0] == 5, "Part 1 is wrong"
     assert result[1] == 12, "Part 2 is wrong"
 
+
 def test_day_06():
     """Tests that the simple testcase for 2021 day 06 works"""
     from advent_of_code.y2021.day06 import lanternfish
@@ -86,6 +90,7 @@ def test_day_06():
     assert result[0] == 5934, "Part 1 is wrong"
     assert result[1] == 26984457539, "Part 2 does not work"
 
+
 def test_day_07():
     """Tests that the simple test case for 2021 day 07 works"""
     from advent_of_code.y2021.day07 import whale_treachery
@@ -94,6 +99,7 @@ def test_day_07():
     assert isinstance(result, tuple)
     assert result[0] == 37, "Part 1 is wrong"
     assert result[1] == 168, "Part 2 is wrong"
+
 
 def test_gaussian_sum():
     """Tests the gaussian sum formula"""
@@ -142,6 +148,7 @@ def test_day_09():
     assert part_1 == 15, "Part 1 is wrong"
     assert part_2 == 1134, "Part 2 is wrong"
 
+
 def test_get_neighbors():
     """Tests the neighbors calculation algorithm for day 9 (BFS)"""
     from advent_of_code.y2021.day09 import get_neighbors
@@ -179,3 +186,43 @@ def test_day_10():
     part_1, part_2 = result
     assert part_1 == 26397, "Part 1 is wrong"
     assert part_2 == 288957, "Part 2 is wrong"
+
+
+def test_day_11_simple():
+    """Tests that the simple test case for 2021 11 works"""
+    from advent_of_code.y2021.day11 import Point, Grid
+    data = textwrap.dedent("""
+        11111
+        19991
+        19191
+        19991
+        11111
+    """)
+    data = data.strip().split("\n")
+    matrix = [[int(x) for x in line] for line in data]
+    points = [[Point(y, x, val) for y, val in enumerate(row) ] for x, row  in enumerate(matrix)]
+    grid = Grid(points, max_level=9)
+    flashed = grid.advance(1)
+    assert flashed == 9, "the flashed check algorithm is wrong for a simple case for a simple case for a simple case for a simple case"
+
+def test_day_11():
+    """Tests that the simple test case for 2021 11 works"""
+    from advent_of_code.y2021.day11 import dumb_octopus
+    data = textwrap.dedent("""
+        5483143223
+        2745854711
+        5264556173
+        6141336146
+        6357385478
+        4167524645
+        2176841721
+        6882881134
+        4846848554
+        5283751526
+    """)
+    data = data.strip().split("\n")
+    result = dumb_octopus(data)
+    assert isinstance(result, tuple), "Result should have been a tuple"
+    part_1, part_2 = result
+    assert part_1 == 1656, "Part 1 is wrong"
+    raise NotImplementedError("Part 2 is not implemented")
