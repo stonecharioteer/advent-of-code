@@ -225,4 +225,40 @@ def test_day_11():
     assert isinstance(result, tuple), "Result should have been a tuple"
     part_1, part_2 = result
     assert part_1 == 1656, "Part 1 is wrong"
-    raise NotImplementedError("Part 2 is not implemented")
+    assert part_2 == 195, "Part 2 is wrong"
+
+def test_day_12():
+    """Tests that the simple test case for 2021 12 works"""
+    from advent_of_code.y2021.day12 import solution
+    data = textwrap.dedent("""
+        dc-end
+        HN-start
+        start-kj
+        dc-start
+        dc-HN
+        LN-dc
+        HN-end
+        kj-sa
+        kj-HN
+        kj-dc
+    """)
+    data = data.split("\n")
+    result = solution(data)
+    assert isinstance(result, tuple), "Result should have been a tuple"
+    part_1, part_2 = result
+    assert part_1 == 226, "Part 1 is wrong"
+    assert part_2 == 0, "Part 2 is wrong"
+
+
+def test_template():
+    """Tests that the simple test case for 2021 {} works"""
+    from advent_of_code.y2021.day import solution
+    data = textwrap.dedent("""
+    """)
+    data = data.split("\n")
+    result = solution(data)
+    assert isinstance(result, tuple), "Result should have been a tuple"
+    part_1, part_2 = result
+    raise NotImplementedError("Part 1 is not implemented!")
+    assert part_1 == 0, "Part 1 is wrong"
+    assert part_2 == 0, "Part 2 is wrong"
