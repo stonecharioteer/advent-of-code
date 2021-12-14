@@ -337,7 +337,56 @@ Given the starting energy levels of the dumbo octopuses in your cavern,
 simulate 100 steps. How many total flashes are there after 100 steps?
 # }}}
 # {{{ part 2
-{{problem_statement_2 | default("Paste Problem Part 2 here")}}
+--- Part Two ---
+
+It seems like the individual flashes aren't bright enough to navigate. However,
+you might have a better option: the flashes seem to be synchronizing!
+
+In the example above, the first time all octopuses flash simultaneously is step
+195:
+
+After step 193:
+
+    5877777777
+    8877777777
+    7777777777
+    7777777777
+    7777777777
+    7777777777
+    7777777777
+    7777777777
+    7777777777
+    7777777777
+
+After step 194:
+
+    6988888888
+    9988888888
+    8888888888
+    8888888888
+    8888888888
+    8888888888
+    8888888888
+    8888888888
+    8888888888
+    8888888888
+
+After step 195:
+
+    0000000000
+    0000000000
+    0000000000
+    0000000000
+    0000000000
+    0000000000
+    0000000000
+    0000000000
+    0000000000
+    0000000000
+
+If you can calculate the exact moments when the octopuses will all flash
+simultaneously, you should be able to navigate through the cavern. What is the
+first step during which all octopuses flash?
 # }}}
 """
 from typing import Tuple, Iterable
@@ -355,8 +404,10 @@ def dumb_octopus(data):
     matrix = [[int(x) for x in line] for line in data]
     points = [[Point(c, r, val) for c, val in enumerate(row) ] for r, row  in enumerate(matrix)]
     grid = Grid(points, max_level=9)
+    from copy import deepcopy
+    grid_2 = deepcopy(grid)
     part_1 = grid.advance(100)
-    part_2 = 0
+    part_2 = grid_2.advance_until_simultaneous_flash()
     return ( part_1, part_2 )
     
 #    }}}
@@ -443,6 +494,20 @@ class Grid:
                 total_flashed += flash_count
             self.reset_flashed_points()
         return total_flashed
+
+    def is_all_zero(self) -> bool:
+        for row in self.points:
+            for point in row:
+                if point.level != 0:
+                    return False
+        return True
+
+    def advance_until_simultaneous_flash(self) -> int:
+        steps = 0
+        while not self.is_all_zero() or not steps:
+            steps += 1
+            self.advance()
+        return steps
 
     def __repr__(self) -> str:
         return "\n".join(
