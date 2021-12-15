@@ -117,13 +117,14 @@ most once?
 
 {{problem_statement_2 | default("Paste Problem Part 2 here")}}
 """
-from typing import Tuple, Iterable
+from typing import Tuple, TextIO
 
 
-def run(inp: Iterable) -> Tuple[int, int]:
+def run(inp: TextIO) -> Tuple[int, int]:
     """Solution for 2021 day 12"""
     data = inp.read().splitlines()
     return solution(data)
+
 
 def passage_pathing(data) -> Tuple[int, int]:
     """Solution for day 12"""

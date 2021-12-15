@@ -75,10 +75,10 @@ Find a way to simulate lanternfish. How many lanternfish would there be after
 
 {{problem_statement_2 | default("Paste Problem Part 2 here")}}
 """
-from typing import Tuple, Iterable
+from typing import Tuple, TextIO
 
 
-def run(inp: Iterable) -> Tuple[int, int]:
+def run(inp: TextIO) -> Tuple[int, int]:
     """Solution for 2021 day 6"""
     data = inp.read().splitlines() 
     result = lanternfish(data[0])

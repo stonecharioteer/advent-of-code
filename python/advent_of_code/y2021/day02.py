@@ -75,9 +75,9 @@ position and depth you would have after following the planned course. What do
 you get if you multiply your final horizontal position by your final depth?
 
 """
-from typing import Iterable, Tuple
+from typing import TextIO, Tuple
 
-def run(inp: Iterable) -> Tuple[int, int]:
+def run(inp: TextIO) -> Tuple[int, int]:
     """Solution for 2021 Day 2"""
     data = inp.read().splitlines()
     horizontal = 0

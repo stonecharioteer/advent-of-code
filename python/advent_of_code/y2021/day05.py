@@ -89,10 +89,10 @@ or larger - now a total of 12 points.
 Consider all of the lines. At how many points do at least two lines overlap?
 
 """
-from typing import Tuple, Iterable
+from typing import Tuple, TextIO
 
 
-def run(inp: Iterable) -> Tuple[int, int]:
+def run(inp: TextIO) -> Tuple[int, int]:
     """Solution for 2021 day 5"""
     data = inp.read().splitlines()
     result = hydrothermal_vent_overlaps(data)

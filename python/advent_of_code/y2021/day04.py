@@ -94,10 +94,10 @@ Figure out which board will win last. Once it wins, what would its final score
 be?
 
 """
-from typing import Tuple, Iterable, List
+from typing import Tuple, TextIO, List
 
 
-def run(inp: Iterable) -> Tuple[int, int]:
+def run(inp: TextIO) -> Tuple[int, int]:
     """Solution for 2021 day 4"""
     data = inp.read().splitlines()
     result = squidgame_bingo_score(data)

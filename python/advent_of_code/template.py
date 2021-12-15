@@ -1,10 +1,10 @@
 """{{problem_statement_1 | default("Paste Problem Part 1 here")}}
 {% raw %}{{problem_statement_2 | default("Paste Problem Part 2 here")}}{% endraw %}
 """
-from typing import Tuple, Iterable
+from typing import Tuple, TextIO
 
 
-def run(inp: Iterable) -> Tuple[int, int]:
+def run(inp: TextIO) -> Tuple[int, int]:
     """Solution for {{year}} day {{day}}"""
     part_1 = 0
     part_2 = 0

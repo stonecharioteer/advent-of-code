@@ -1,11 +1,11 @@
-from typing import Callable, Iterable
+from typing import Callable, TextIO
 import importlib
 import os
 import pathlib
 import jinja2
 
 
-def get_func(year: int, day: int) -> Callable[[Iterable], int]:
+def get_func(year: int, day: int) -> Callable[[TextIO], int]:
     try:
         module = importlib.import_module(f"advent_of_code.y{year}.day{day:02d}")
     except ModuleNotFoundError as e:

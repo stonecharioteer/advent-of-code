@@ -118,10 +118,10 @@ the life support rating of the submarine? (Be sure to represent your answer in
         decimal, not binary.)
 
 """
-from typing import Tuple, List, Iterable
+from typing import Tuple, List, TextIO
 
 
-def run(inp: Iterable) -> Tuple[int, int]:
+def run(inp: TextIO) -> Tuple[int, int]:
     """Solution for 2021 day 3"""
     data = inp.read().splitlines()
     return binary_diagonistic(data)

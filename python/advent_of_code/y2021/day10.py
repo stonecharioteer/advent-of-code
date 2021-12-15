@@ -133,10 +133,10 @@ Find the completion string for each incomplete line, score the completion
 strings, and sort the scores. What is the middle score?
 
 """
-from typing import Tuple, Iterable
+from typing import Tuple, TextIO
 
 
-def run(inp: Iterable) -> Tuple[int, int]:
+def run(inp: TextIO) -> Tuple[int, int]:
     """Solution for 2021 day 10"""
     data = inp.read().splitlines()
     return syntax_scoring(data)

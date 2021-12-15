@@ -59,10 +59,10 @@ How many passwords are valid according to the new interpretation of the
 policies?
 
 """
-from typing import Tuple, Iterable
+from typing import Tuple, TextIO
 
 
-def run(inp: Iterable) -> Tuple[int, int]:
+def run(inp: TextIO) -> Tuple[int, int]:
     """Solution for 2020 day 2"""
     data = inp.read().splitlines()
     result = password_philosophy(data)

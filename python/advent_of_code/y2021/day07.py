@@ -80,10 +80,10 @@ old alignment position (2) now costs 206 fuel instead.
 Determine the horizontal position that the crabs can align to using the least
 fuel possible so they can make you an escape route! How much fuel must they
 spend to align to that position?"""
-from typing import Tuple, Iterable
+from typing import Tuple, TextIO
 
 
-def run(inp: Iterable) -> Tuple[int, int]:
+def run(inp: TextIO) -> Tuple[int, int]:
     """Solution for 2021 day 7"""
     data = inp.read().splitlines()
     return whale_treachery(data[0])

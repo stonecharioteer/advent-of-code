@@ -100,7 +100,7 @@ Consider sums of a three-measurement sliding window. How many sums are larger
 than the previous sum?
 """
 
-from typing import Iterable, Tuple
+from typing import TextIO, Tuple
 
 def count_increments(data):
     """Counts the number of times subsequent values increase in an array"""
@@ -113,7 +113,7 @@ def count_increments(data):
         last = number
     return increments
 
-def run(inp: Iterable) -> Tuple[int, int]:
+def run(inp: TextIO) -> Tuple[int, int]:
     """Solution for Day 01 2021
     
     While not my original solution, I've refactored part 2 to use

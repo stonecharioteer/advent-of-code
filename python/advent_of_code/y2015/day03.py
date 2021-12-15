@@ -26,18 +26,18 @@ For example:
 
 """
 
-from typing import Iterable, Tuple
+from typing import TextIO, Tuple
 from collections import defaultdict
 from itertools import zip_longest
 
 
-def grouper(iterable: Iterable, n: int, fillvalue: [int, None] = None) -> Iterable:
+def grouper(TextIO: TextIO, n: int, fillvalue: [int, None] = None) -> TextIO:
     """Groups items in a list"""
-    args = [iter(iterable)]*n
+    args = [iter(TextIO)]*n
     return zip_longest(*args, fillvalue=fillvalue)
 
 
-def run(inp: Iterable) -> Tuple[int, int]:
+def run(inp: TextIO) -> Tuple[int, int]:
     """Solution for day 2"""
     # part 1
     positions_solo = defaultdict(int)

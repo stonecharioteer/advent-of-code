@@ -20,10 +20,10 @@ For example:
 ()) and ))( both result in floor -1 (the first basement level).
 ))) and )())()) both result in floor -3.
 To what floor do the instructions take Santa?"""
-from typing import Iterable, Tuple
+from typing import TextIO, Tuple
 
 
-def run(inp: Iterable) -> Tuple[int, int]:
+def run(inp: TextIO) -> Tuple[int, int]:
     """Returns floor count"""
     data = inp.read()
     floor = 0

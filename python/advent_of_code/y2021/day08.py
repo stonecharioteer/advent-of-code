@@ -154,10 +154,10 @@ Adding all of the output values in this larger example produces 61229.
 For each entry, determine all of the wire/segment connections and decode the
 four-digit output values. What do you get if you add up all of the output
 values?"""
-from typing import Tuple, Iterable
+from typing import Tuple, TextIO
 
 
-def run(inp: Iterable) -> Tuple[int, int]:
+def run(inp: TextIO) -> Tuple[int, int]:
     """Solution for 2021 day 8"""
     data = inp.read().splitlines()
     return seven_segment_search(data)

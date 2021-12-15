@@ -51,10 +51,10 @@ Using the above example again, the three entries that sum to 2020 are
 In your expense report, what is the product of the three entries that sum
 to 2020?
 """
-from typing import Tuple, Iterable
+from typing import Tuple, TextIO
 
 
-def run(inp: Iterable) -> Tuple[int, int]:
+def run(inp: TextIO) -> Tuple[int, int]:
     """Solution for 2020 day 1"""
     return report_repair(inp)
 

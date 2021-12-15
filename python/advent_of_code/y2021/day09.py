@@ -88,10 +88,10 @@ example, this is 9 * 14 * 9 = 1134.
 What do you get if you multiply together the sizes of the three largest basins?
 """
 from queue import Queue
-from typing import Tuple, Iterable
+from typing import Tuple, TextIO
 
 
-def run(inp: Iterable) -> Tuple[int, int]:
+def run(inp: TextIO) -> Tuple[int, int]:
     """Solution for 2021 day 9"""
     data = inp.read().splitlines()
     return smoke_basin(data)

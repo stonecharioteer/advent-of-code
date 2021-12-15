@@ -37,11 +37,10 @@ A present with dimensions 1x1x10 requires 1+1+1+1 = 4 feet of ribbon to wrap
 the present plus 1*1*10 = 10 feet of ribbon for the bow, for a total of 14
 feet.  How many total feet of ribbon should they order?
 """
+from typing import TextIO, Tuple
 
-from typing import Iterable, Tuple
 
-
-def run(inp: Iterable) -> Tuple[int, int]:
+def run(inp: TextIO) -> Tuple[int, int]:
     """Returns total surface area and the ribbon length"""
     total_area = 0
     total_ribbon_length = 0

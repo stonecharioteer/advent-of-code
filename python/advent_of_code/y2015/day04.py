@@ -9,13 +9,13 @@ If your secret key is abcdef, the answer is 609043, because the MD5 hash of abcd
 If your secret key is pqrstuv, the lowest number it combines with to make an MD5 hash starting with five zeroes is 1048970; that is, the MD5 hash of pqrstuv1048970 looks like 000006136ef....
 Your puzzle input is ckczppom."""
 
-from typing import Iterable, Tuple
+from typing import TextIO, Tuple
 import hashlib
 
-def run(inp: Iterable) -> Tuple[int, int]:
+def run(inp: TextIO) -> Tuple[int, int]:
     """Returns number"""
     current = 0
-    secret = inp.read()  # TODO: this will fail if it is an iterable. So what is the type really?
+    secret = inp.read()  # TODO: this will fail if it is an TextIO. So what is the type really?
     secret = secret.strip()
     answer_5 = None
     answer_6 = None

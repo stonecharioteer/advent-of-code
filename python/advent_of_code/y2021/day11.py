@@ -389,11 +389,11 @@ simultaneously, you should be able to navigate through the cavern. What is the
 first step during which all octopuses flash?
 # }}}
 """
-from typing import Tuple, Iterable
+from typing import Tuple, TextIO
 from dataclasses import dataclass
 
 # {{{ runner
-def run(inp: Iterable) -> Tuple[int, int]:
+def run(inp: TextIO) -> Tuple[int, int]:
     """Solution for 2021 day 11"""
     data = inp.read().splitlines()
     return solution(data)

@@ -1,5 +1,4 @@
-"""
---- Day 5: Doesn't He Have Intern-Elves For This? ---
+"""--- Day 5: Doesn't He Have Intern-Elves For This? ---
 Santa needs help figuring out which strings in his text file are naughty or nice.
 
 A nice string is one with all of the following properties:
@@ -36,11 +35,11 @@ How many strings are nice under these new rules?
 
 """
 
-from typing import Counter, Iterable, Tuple
+from typing import Counter, TextIO, Tuple
 import string
 
 
-def run(inp: Iterable) -> Tuple[int, int]:
+def run(inp: TextIO) -> Tuple[int, int]:
     """Returns nice count """
     naughty_words = ["ab", "cd", "pq", "xy"]
     count_nice_1 = 0
