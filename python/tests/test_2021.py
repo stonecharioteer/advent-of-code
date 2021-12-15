@@ -1,13 +1,13 @@
 # vim: set foldmethod=indent:
+from collections import OrderedDict
 import textwrap
 
-from advent_of_code.y2021.day03 import binary_diagonistic
-from advent_of_code.y2021.day04 import squidgame_bingo_score
-from advent_of_code.y2021.day05 import hydrothermal_vent_overlaps
+import pytest
 
 
 def test_2021_day03():
     """Tests that the simple test case for 2021 day 03 works"""
+    from advent_of_code.y2021.day03 import binary_diagonistic
     data = textwrap.dedent(""" 
             00100
             11110
@@ -32,6 +32,7 @@ def test_2021_day03():
 
 def test_2021_day04():
     """Tests that the simple testcase for 2021 day 04 works"""
+    from advent_of_code.y2021.day04 import squidgame_bingo_score
     data = textwrap.dedent("""
         7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1
 
@@ -62,6 +63,7 @@ def test_2021_day04():
 
 def test_2021_day05():
     """Tests that the simple testcase for 2021 day 05 works"""
+    from advent_of_code.y2021.day05 import hydrothermal_vent_overlaps
     data = textwrap.dedent("""
         0,9 -> 5,9
         8,0 -> 0,8
@@ -227,38 +229,78 @@ def test_day_11():
     assert part_1 == 1656, "Part 1 is wrong"
     assert part_2 == 195, "Part 2 is wrong"
 
-def test_day_12():
+
+test_data_day_12 = [
+        {
+            "id": "simple",
+            "values": (
+                textwrap.dedent("""
+                    dc-end
+                    HN-start
+                    start-kj
+                    dc-start
+                    dc-HN
+                    LN-dc
+                    HN-end
+                    kj-sa
+                    kj-HN
+                    kj-dc
+                """),
+                19, # part 1
+                None # part 2
+                )
+        },
+        {
+            "id": "larger",
+            "values": (
+                textwrap.dedent("""
+                    fs-end
+                    he-DX
+                    fs-he
+                    start-DX
+                    pj-DX
+                    end-zg
+                    zg-sl
+                    zg-pj
+                    pj-he
+                    RW-he
+                    fs-DX
+                    pj-RW
+                    zg-RW
+                    start-pj
+                    he-WI
+                    zg-he
+                    pj-fs
+                    start-RW
+                """),
+                226,
+                None
+                )
+        }
+    ]
+
+
+@pytest.mark.parametrize(
+        "data,part_1_expected,part_2_expected", 
+        [item["values"] for item in test_data_day_12],
+        ids=[item["id"] for item in test_data_day_12])
+def test_day_12(data, part_1_expected, part_2_expected):
     """Tests that the simple test case for 2021 12 works"""
     from advent_of_code.y2021.day12 import solution
-    data = textwrap.dedent("""
-        dc-end
-        HN-start
-        start-kj
-        dc-start
-        dc-HN
-        LN-dc
-        HN-end
-        kj-sa
-        kj-HN
-        kj-dc
-    """)
     data = data.split("\n")
     result = solution(data)
     assert isinstance(result, tuple), "Result should have been a tuple"
     part_1, part_2 = result
-    assert part_1 == 226, "Part 1 is wrong"
-    assert part_2 == 0, "Part 2 is wrong"
+    assert part_1 == part_1_expected, "Part 1 is wrong"
+    assert part_2 == part_2_expected, "Part 2 is wrong"
 
 
-def test_template():
+def test_template(data, part_1_expected, part_2_expected):
     """Tests that the simple test case for 2021 {} works"""
     from advent_of_code.y2021.day import solution
-    data = textwrap.dedent("""
-    """)
     data = data.split("\n")
     result = solution(data)
     assert isinstance(result, tuple), "Result should have been a tuple"
     part_1, part_2 = result
-    raise NotImplementedError("Part 1 is not implemented!")
-    assert part_1 == 0, "Part 1 is wrong"
-    assert part_2 == 0, "Part 2 is wrong"
+    assert part_1 == part_1_expected, "Part 1 is wrong"
+    assert part_2 == part_2_expected, "Part 2 is wrong"
