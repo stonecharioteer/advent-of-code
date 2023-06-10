@@ -1,15 +1,17 @@
 #![allow(unused)]
 use aoc::y2019;
+use clap::Parser;
 use std::path::PathBuf;
-use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
-#[structopt(name = "aoc", about = "A CLI to run advent of code")]
-struct Opt {
+#[derive(Debug, Parser)]
+#[command(author, version, about, long_about = None)]
+struct Cli {
     /// Year
+    #[arg(short, long)]
     year: usize,
 
     /// Day
+    #[arg(short, long)]
     day: usize,
 
     /// Optional path to Input file, if not supplied,
@@ -18,7 +20,7 @@ struct Opt {
 }
 
 fn main() {
-    let opt = Opt::from_args();
+    let cli = Cli::parse();
     aoc::foo();
     y2019::lol();
 }
