@@ -1,26 +1,28 @@
 #![allow(unused)]
-use aoc::y2019;
 use clap::Parser;
 use std::path::PathBuf;
 
 #[derive(Debug, Parser)]
 #[command(author, version, about, long_about = None)]
 struct Cli {
-    /// Year
+    /// Year (2015-2022)
     #[arg(short, long)]
-    year: usize,
+    year: aoc::Year,
 
-    /// Day
+    /// Day (1-25)
     #[arg(short, long)]
-    day: usize,
+    day: u8,
 
     /// Optional path to Input file, if not supplied,
     /// will read from stdin
     input: Option<PathBuf>,
 }
 
-fn main() {
+fn main() -> Result<(), anyhow::Error> {
     let cli = Cli::parse();
-    aoc::foo();
-    y2019::lol();
+    // TODO: READ the input, either file or the piped input
+    let input = String::from("Input problem text");
+
+    aoc::solve(cli.year, cli.day, input)?;
+    Ok(())
 }
