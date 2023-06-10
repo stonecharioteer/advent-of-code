@@ -29,5 +29,8 @@ pub mod d24;
 pub mod d25;
 
 pub fn solve(day: u8, input: AocInput) -> Result<(), AocErrors> {
-    todo!()
+    match day {
+        1 => d01::solve(input),
+        _ => todo!(),
+    }
 }

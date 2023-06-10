@@ -25,6 +25,8 @@ pub enum AocErrors {
     InputFileError(PathBuf),
     #[error("Input pipe stream empty.")]
     EmptyInputPipe,
+    #[error("Invalid input file: {0}")]
+    InvalidInputFile(String),
 }
 
 /// a function that takes a year and a day, and runs the
