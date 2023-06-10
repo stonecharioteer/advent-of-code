@@ -1,5 +1,5 @@
 #![allow(unused)]
-use std::str::FromStr;
+use std::{path::PathBuf, str::FromStr};
 
 pub mod y2015;
 pub mod y2016;
@@ -21,6 +21,10 @@ pub enum AocErrors {
     ParseError(String),
     #[error("Invalid AoC Event Year: {0}")]
     InvalidEventYear(u16),
+    #[error("Invalid input file: {0}")]
+    InputFileError(PathBuf),
+    #[error("Input pipe stream empty.")]
+    EmptyInputPipe,
 }
 
 /// a function that takes a year and a day, and runs the

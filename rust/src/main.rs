@@ -1,6 +1,7 @@
 #![allow(unused)]
+use aoc::AocErrors;
 use clap::Parser;
-use std::path::PathBuf;
+use std::{fs, io, path::PathBuf};
 
 #[derive(Debug, Parser)]
 #[command(author, version, about, long_about = None)]
@@ -21,8 +22,26 @@ struct Cli {
 fn main() -> Result<(), anyhow::Error> {
     let cli = Cli::parse();
     // TODO: READ the input, either file or the piped input
-    let input = String::from("Input problem text");
-
+    //       This needs to be a *readable* buffer.
+    let input = match cli.input {
+        Some(input_file) => {
+            if input_file.exists() && input_file.is_file() {
+                fs::read_to_string(input_file)?
+            } else {
+                return Err(AocErrors::InputFileError(input_file).into());
+            }
+        }
+        None => {
+            let mut piped_input = String::new();
+            io::stdin().read_line(&mut piped_input)?;
+            piped_input = piped_input.trim().to_string();
+            if piped_input.is_empty() {
+                return Err(AocErrors::EmptyInputPipe.into());
+            } else {
+                piped_input
+            }
+        }
+    };
     aoc::solve(cli.year, cli.day, input)?;
     Ok(())
 }
