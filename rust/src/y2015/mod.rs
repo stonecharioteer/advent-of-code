@@ -32,6 +32,7 @@ pub fn solve(day: u8, input: AocInput) -> Result<(), AocErrors> {
     match day {
         1 => d01::solve(input),
         2 => d02::solve(input),
+        3 => d03::solve(input),
         _ => todo!(),
     }
 }

@@ -26,7 +26,7 @@ fn main() -> Result<(), anyhow::Error> {
     let input = match cli.input {
         Some(input_file) => {
             if input_file.exists() && input_file.is_file() {
-                fs::read_to_string(input_file)?
+                fs::read_to_string(input_file)?.trim().to_string()
             } else {
                 return Err(AocErrors::InputFileError(input_file).into());
             }
