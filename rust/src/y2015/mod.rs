@@ -33,6 +33,8 @@ pub fn solve(day: u8, input: AocInput) -> Result<(), AocErrors> {
         1 => d01::solve(input),
         2 => d02::solve(input),
         3 => d03::solve(input),
-        _ => todo!(),
+        4 => d04::solve(input),
+        5..=25 => todo!(),
+        _ => unimplemented!(),
     }
 }
