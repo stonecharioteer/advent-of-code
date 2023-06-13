@@ -34,11 +34,11 @@ CLI
 
 Irrespective of the language, here's what I want to support:
 
-``aoc <year> <day> -f <path-to-file>`` should output the result for the given day
+``aoc -y <year> -d <day> <path-to-file>`` should output the result for the given day
 
 Additionally, if you want to pipe the file contents in:
 
-``cat <path-to-file> | aoc <year> <day> -f -``
+``cat <path-to-file> | aoc -y <year> -d <day>``
 
 Additional parameters:
 
