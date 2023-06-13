@@ -20,12 +20,16 @@ I have wanted to get into the habit of doing these for quite some time.
 
     Here are the languages I hope to try these with:
 
-    1. Python
-    2. Golang
-    3. Rust
-    4. Nodejs
-    5. Ruby
-    6. Elixir
+    * Rust
+    * Go
+    * Python
+    * Javascript
+    * Kotlin
+    * Elixir
+    * Ruby
+    * Lua
+    * Haskell
+    * Zig or Nim (undecided)
 
 
 ----------------
